@@ -9,7 +9,7 @@
 
 1. Клонируйте репозиторий:
 ```
-git clone https://github.com/yuriy0770/VitjetsBank.gi
+git clone https://github.com/yuriy0770/VitjetsBank.git
 
 
 
