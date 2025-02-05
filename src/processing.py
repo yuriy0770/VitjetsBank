@@ -2,9 +2,9 @@ from typing import List
 
 
 def filter_by_state(dict_lists: List, state='EXECUTED') -> List:
-    '''Функция возвращает новый список словарей, содержащий только те словари, у которых ключ
-state
- соответствует указанному значению.'''
+    '''Функция возвращает новый список словарей, содержащий только те словари, у которых ключ state
+
+    сответствует указанному значению.'''
     for i in dict_lists:
         i["state"] = state
     return dict_lists
