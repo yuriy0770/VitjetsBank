@@ -17,7 +17,11 @@ git clone https://github.com/yuriy0770/VitjetsBank.git
 pip install -r requirements.txt
 ```
 
+## Тестирование
 
+Тестирование ведедся с помощью модуля pytest.
+Я использовал для тестирования (в основном) 2 фикстуры на 1у функцию,
+также параметризацию и assert
 
 
 
