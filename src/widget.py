@@ -5,10 +5,14 @@ from src.masks import get_mask_card_number, get_mask_account
 def mask_account_card(card: str) -> str:
     """Функция, возвращающая замаскированный номер карты или счёта"""
     card1 = card.split()
-    if card1[0] == "Счет":
-        return f'{card1[0]} {get_mask_account(int(card1[1]))}'
+    if len(card1[-1]) != 16:
+        raise Exception("Номер карты должен иметь 16 цифр")
     else:
-        return f'{" ".join(card1[:-1])} {get_mask_card_number(int(card1[-1]))}'
+
+        if card1[0] == "Счет":
+            return f'{card1[0]} {get_mask_account(int(card1[1]))}'
+        else:
+            return f'{" ".join(card1[:-1])} {get_mask_card_number(int(card1[-1]))}'
 
 
 def get_date(date: str) -> str:
