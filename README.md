@@ -24,6 +24,7 @@ pip install -r requirements.txt
 Я использовал для тестирования (в основном) 2 фикстуры на одну функцию,
 также я использовал параметризацию и assert
 
-
+## Добавл новый модуль generators
+В модуле есть 3 функции filter_by_currency, transaction_descriptions, card_number_generator
 
 
