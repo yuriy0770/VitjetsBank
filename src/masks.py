@@ -13,5 +13,3 @@ def get_mask_account(number_score: int) -> str:
         raise Exception("Номер карты должен иметь 16 цифр")
     else:
         return "**" + str(number_score)[-4:]
-
-
