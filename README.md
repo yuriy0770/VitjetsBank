@@ -15,9 +15,9 @@ git clone https://github.com/yuriy0770/VitjetsBank.git
 ```
 pip install -r requirements.txt
 
-## Добавлены тесты
+# Добавлены тесты
 Покрытие тестами более 80%
 
-## Добавлен модуль generators
+# Добавлен модуль generators
 В котором 3 ф-и 
 
