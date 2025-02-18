@@ -1,7 +1,5 @@
+from src.masks import get_mask_account, get_mask_card_number
 import pytest
-
-from src.masks import get_mask_card_number, get_mask_account
-
 
 def test_get_mask_card_number1():
     assert get_mask_card_number("1234746532784873") == "1234 74** **** 4873"
@@ -18,12 +16,13 @@ def test_get_mask_card_number3():
     assert get_mask_card_number("5555746532782222") == "5555 74** **** 2222"
 
 
-def test_get_mask_card_number2():
-    with pytest.raises(Exception):
+def test_get_mask_card_number4():
+    with pytest.raises(ValueError):
         get_mask_card_number("345453")
-    with pytest.raises(Exception):
+def test_get_mask_card_number5():
+    with pytest.raises(ValueError):
         get_mask_card_number("")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         get_mask_card_number("564766767757657575757")
 
 
@@ -37,14 +36,14 @@ def test_get_mask_card_number2():
         ("5555797779777444", "**7444"),
     ],
 )
-def tests_get_mask_account1(test1, test2):
+def test_get_mask_account1(test1, test2):
     assert get_mask_account(test1) == test2
 
 
 def test_get_mask_account2():
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         get_mask_card_number("34543")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         get_mask_card_number("")
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         get_mask_card_number("56476676774564657657575757")
