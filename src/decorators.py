@@ -1,4 +1,5 @@
 def log(filename=None):
+    """Декоратор для автоматического логирования выполнения функций."""
     def wrapper(f):
         def inner(*args):
             if filename is not None and isinstance(filename, str) and filename[-3:] == "txt":
