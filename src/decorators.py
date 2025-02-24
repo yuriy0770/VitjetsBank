@@ -1,46 +1,31 @@
-import logging
-from functools import wraps
-
-
 def log(filename=None):
-    """Декоратор для автоматического логирования выполнения функций."""
+    def wrapper(f):
+        def inner(*args):
+            if filename is not None and isinstance(filename, str) and filename[-3:] == "txt":
+                try:
+                    f(*args)
+                except TypeError as f1:
+                    with open(filename, "w", encoding="utf-8") as file:
+                        file.write(f"{f.__name__} error: {f1}. Inputs: {args}")
+                except ValueError as f1:
+                    with open(filename, "w", encoding="utf-8") as file:
+                        file.write(f"{f.__name__} error: {f1}. Inputs: {args}")
+                else:
+                    with open(filename, "w", encoding="utf-8") as file:
+                        file.write(f"{f.__name__} ok")
+            elif filename is None or filename == "":
+                try:
+                    f(*args)
+                except TypeError as f2:
+                    return f"{f.__name__} error: {f2}. Inputs: {args}"
+                except ValueError as f2:
+                    return f"{f.__name__} error: {f2}. Inputs: {args}"
+                else:
+                    return f"{f.__name__} ok"
+            else:
+                raise ValueError("Не правильное название файла")
 
-    def decorator(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            try:
-                result = func(*args, **kwargs)
+        return inner
+    return wrapper
 
-                # Логирование результата успешной операции
-                log_message = f"Функция '{func.__name__}' выполнена успешно. Результат: {result}"
-                logging.info(log_message)
-
-                return result
-
-            except Exception as e:
-                # Логирование ошибки, возникшей во время выполнения функции
-                error_type = type(e).__name__
-                log_message = f"Функция '{func.__name__}' завершилась с ошибкой {error_type}"
-                logging.error(log_message)
-
-                # Перехват и возврат исключения
-                raise e
-
-        return wrapper
-
-    if filename is not None:
-        # Создание файлового логера
-        logging.basicConfig(filename=filename, level=logging.INFO)
-
-    return decorator
-
-
-# Пример использования декоратора:
-@log(filename="example.log")
-def add(a, b):
-    """Возвращает сумму двух чисел."""
-    return a + b
-
-
-print(add(5, 7))
 
