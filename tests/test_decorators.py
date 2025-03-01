@@ -1,63 +1,63 @@
 import pytest
-from src.decorators import log  # Импорт вашего модуля с декоратором
+from datetime import datetime
+from src.decorators import log  # импортируем наш декоратор
 
 
+def test_log_decorator_success(capfd):
+    """Тест успешного логирования."""
+
+    @log(filename="test_log.txt")
+    def add(x, y):
+        return x + y
+
+    result = add(1, 2)
+
+    captured = capfd.readouterr()
+    assert "2023-03-10" in captured.out
+    assert "Функция 'add' начата" in captured.out
+    assert "Функция 'add' ok" in captured.out
 
 
-def test_log_no_function_args():
+def test_log_decorator_error(capfd):
+    """Тест логирования ошибки."""
+
+    @log(filename="test_log.txt")
+    def divide(x, y):
+        return x / y
+
+    with pytest.raises(ZeroDivisionError):
+        divide(1, 0)
+
+    captured = capfd.readouterr()
+    assert "2023-03-10" in captured.out
+    assert "Функция 'divide' начата" in captured.out
+    assert "Функция 'divide' error: ZeroDivisionError: division by zero" in captured.out
+
+
+def test_log_decorator_no_file_name(capfd):
+    """Тест логирования без файла."""
+
     @log()
-    def add1(a, b):
-        return a / b
+    def my_function(x, y):
+        return x + y
 
-    assert add1(1, 2) == 'add1 ok'
+    result = my_function(1, 2)
 
-
-def test_log1():
-    @log(12)
-    def add(a, b):
-        return a + b
-
-    with pytest.raises(ValueError, match='Не правильное название файла'):
-        add(1, 2)
+    captured = capfd.readouterr()
+    assert "Функция 'my_function' начата" in captured.out
+    assert "Функция 'my_function' ok" in captured.out
 
 
-def test_log2():
-    @log("efgeeg")
-    def add(a, b):
-        return a + b
+def test_log_decorator_error_no_file_name(capfd):
+    """Тест логирования ошибки без файла."""
 
-    with pytest.raises(ValueError, match='Не правильное название файла'):
-        add(1, 2)
-
-
-def test_log3():
-    @log("ughiug345636.,,.,.,")
-    def add(a, b):
-        return a + b
-
-    with pytest.raises(ValueError, match='Не правильное название файла'):
-        add(1, 2)
-
-
-def test_log4():
     @log()
-    def add(a, b):
-        return a + b
-    assert add(1, 2) == "add ok"
+    def divide(x, y):
+        return x / y
 
+    with pytest.raises(ZeroDivisionError):
+        divide(1, 0)
 
-def test_log5(capsys):
-    @log("example.txt")
-    def add(a, b):
-        return a+b
-
-    assert add(1,2) == None
-
-def test_log6(capsys):
-    @log()
-    def add(a, b):
-        return a+b
-
-    assert add('1',2) == f'add error: can only concatenate str (not "int") to str. Inputs: (\'1\', 2)'
-
-
+    captured = capfd.readouterr()
+    assert "Функция 'divide' начата" in captured.out
+    assert "Функция 'divide' error: ZeroDivisionError: division by zero" in captured.out
