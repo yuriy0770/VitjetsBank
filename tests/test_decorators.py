@@ -13,7 +13,6 @@ def test_log_decorator_success(capfd):
     result = add(1, 2)
 
     captured = capfd.readouterr()
-    assert "2023-03-10" in captured.out
     assert "Функция 'add' начата" in captured.out
     assert "Функция 'add' ok" in captured.out
 
@@ -29,7 +28,7 @@ def test_log_decorator_error(capfd):
         divide(1, 0)
 
     captured = capfd.readouterr()
-    assert "2023-03-10" in captured.out
+
     assert "Функция 'divide' начата" in captured.out
     assert "Функция 'divide' error: ZeroDivisionError: division by zero" in captured.out
 

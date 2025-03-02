@@ -11,7 +11,7 @@ def log(filename=None):
             try:
                 # Начало логирования
                 if filename is not None:
-                    with open(filename, "a") as f:
+                    with open(filename, "a", encoding='utf-8') as f:
                         log_message = f"{datetime.now()}: Функция '{func.__name__}' начата\n"
 
                         f.write(log_message)
@@ -23,7 +23,7 @@ def log(filename=None):
 
                 # Логирование результата успешной операции
                 if filename is not None:
-                    with open(filename, "a") as f:
+                    with open(filename, "a", encoding='utf-8') as f:
                         log_message = f"{datetime.now()}: Функция '{func.__name__}' ok\n"
 
                         f.write(log_message)
@@ -35,7 +35,7 @@ def log(filename=None):
             except Exception as e:
                 # Логирование ошибки, возникшей во время выполнения функции
                 if filename is not None:
-                    with open(filename, "a") as f:
+                    with open(filename, "a", encoding='utf-8') as f:
                         log_message = (
                                 f"{datetime.now()}: "
                                 + f"Функция '{func.__name__}' error: {type(e).__name__}: {str(e)}\n"
