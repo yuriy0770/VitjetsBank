@@ -8,7 +8,10 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "pytest (>=8.3.4,<9.0.0)"
+    "pytest (>=8.3.4,<9.0.0)",
+    "chardet (>=5.2.0,<6.0.0)",
+    "requests (>=2.32.3,<3.0.0)",
+    "python-dotenv (>=1.0.1,<2.0.0)"
 ]
 
 
@@ -20,6 +23,8 @@ build-backend = "poetry.core.masonry.api"
 flake8 = "^7.1.1"
 pytest-cov = "^6.0.0"
 pytest = "^8.3.4"
+chardet = "^5.2.0"
+requests = "^2.32.3"
 
 
 [tool.poetry.group.lint.dependencies]
@@ -28,6 +33,7 @@ black = "^24.10.0"
 flake8 = "^7.1.1"
 isort = "^5.13.2"
 pytest-cov = "^6.0.0"
+chardet = "^5.2.0"
 
 
 [tool.poetry.group.link.dependencies]
