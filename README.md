@@ -24,7 +24,11 @@ pip install -r requirements.txt
 Я использовал для тестирования (в основном) 2 фикстуры на одну функцию,
 также я использовал параметризацию и assert
 
-## Добавл новый модуль generators
+## Добавил новый модуль generators
 В модуле есть 3 функции filter_by_currency, transaction_descriptions, card_number_generator
+
+## Добавление нового модуля templates.py 
+В этом модуле реализованы 2 функции для считывания данных csv и excel
+файлов, также для них написаны тесты
 
 
