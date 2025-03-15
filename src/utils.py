@@ -6,12 +6,12 @@ import logging
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s %(name)s %(levelname)s %(message)s",
-    filename="../logs/utils.log",
+    filename=r"C:\Users\User\VidjetsBank\logs\utils.log",
     encoding="utf-8",
     filemode="w",
 )
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("load_financial_transactions")
 
 
 def load_financial_transactions(json_file_path):
@@ -22,7 +22,7 @@ def load_financial_transactions(json_file_path):
         logger.info("Зашершение функции")
         return []
     try:
-        with open("../data/operations.json", encoding="utf-8") as file:
+        with open(json_file_path, encoding="utf-8") as file:
             logger.info(f"Выгружаем данные из файла {json_file_path.split('/')[-1]}")
             data = json.load(file)
     except (json.JSONDecodeError, FileNotFoundError) as ex:
@@ -39,6 +39,3 @@ def load_financial_transactions(json_file_path):
     logger.info("Возвращаем список данных")
     logger.info("Зашершение функции")
     return transactions
-
-
-print(load_financial_transactions("../data/operations.json"))

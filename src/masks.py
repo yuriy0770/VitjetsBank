@@ -3,7 +3,7 @@ import logging
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s %(name)s %(levelname)s %(message)s",
-    filename="../logs/mask.log",
+    filename=r"C:\Users\User\VidjetsBank\logs/mask.log",
     encoding="utf-8",
     filemode="w",
 )
@@ -39,7 +39,3 @@ def get_mask_account(number_score: int) -> str:
         logger1.info(f"Функция get_mask_card_number завершила работу успешно. Маска номера карты: {card_get1}")
         logger1.info(f"Зашершение работы функции")
         return card_get1
-
-
-print(get_mask_card_number("6446584937585675"))
-print(get_mask_account("6363636363636363"))

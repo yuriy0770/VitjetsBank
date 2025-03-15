@@ -4,16 +4,18 @@ from typing import List
 import pandas as pd
 
 
-
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s - %(name)s - %(levelname)s : %(message)s',
-                    filename="../logs/templates.log",
-                    encoding="utf-8",
-                    filemode="w")
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s - %(name)s - %(levelname)s : %(message)s",
+    filename=r"C:\Users\User\VidjetsBank\logs\templates.log",
+    encoding="utf-8",
+    filemode="w",
+)
 
 
 logger1 = logging.getLogger("csv")
 logger2 = logging.getLogger("excel")
+
 
 def read_csv(csv_path: str) -> list:
     """Считывает csv файл и возврвщает срисок словарей"""
@@ -31,11 +33,10 @@ def read_csv(csv_path: str) -> list:
                 list_row.append(dict_f)
     except FileNotFoundError as ex:
         logger1.error(f"Ошибка {ex}")
-        return 'Не правильно указан путь к файлу {ex}'
+        return "Не правильно указан путь к файлу"
     else:
         logger1.info("Завершение работы")
         return list_row
-
 
 
 def read_excel(excel_path: str) -> List:
@@ -61,14 +62,3 @@ def read_excel(excel_path: str) -> List:
         logger2.info("Возвращаем список словарей")
         logger2.info("Завершение работы")
         return list_dict
-
-
-
-
-
-
-
-
-
-
-
