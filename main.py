@@ -7,7 +7,7 @@ from src.templates import read_csv, read_excel
 from src.utils import load_financial_transactions
 
 
-def path1():
+def part1():
     choice = input()
     if choice == "1":
         program_dir = os.path.join(os.path.dirname(__file__), 'data')
@@ -25,19 +25,19 @@ def path1():
         print(f'Нужно ввести одно число от 1 до 3')
 
 
-def path2(path):
-    categories = ['executed', 'canceled', 'pending']
+def part2(path):
+    categories = ['EXECUTED', 'CANCELED', 'PENDING']
 
     status_choice = input("Введите статус, по которому необходимо выполнить фильтрацию."
                           "Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING\n")
-    while status_choice.lower() not in categories:
+    while status_choice.upper() not in categories:
         print(f"Статус операции '{status_choice}' недоступен.")
         status_choice = input("Введите статус, по которому необходимо выполнить фильтрацию. ")
     else:
         print(f'Операции отфильтрованы по статусу "{status_choice}"')
     return filter_by_state(path, status_choice)
 
-def path3(pat1):
+def part3(pat1):
     sort_date = input("Отсортировать операции по дате? Да/Нет\n")
     if sort_date.lower() == "да":
         sort_by = input('Отсортировать по возрастанию или по убыванию?\n')
@@ -79,8 +79,10 @@ def path3(pat1):
 
 
 def main():
-
-    path3(path2(path1()))
+    start = part1()
+    between = part2
+    end = part3
+    end(between(start))
 
 
 

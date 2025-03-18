@@ -1,6 +1,5 @@
-import pytest
+
 import unittest
-from unittest.mock import Mock, patch
 from src.processing import find_operations, count_operations_by_category
 from src.processing import filter_by_state, sort_by_date
 from tests.conftest import filter_by_state_open, filter_by_state_exit1, filter_by_state_exit2

@@ -1,3 +1,4 @@
+from collections import Counter
 from typing import List
 import re
 
@@ -32,16 +33,13 @@ def find_operations(operations: list[dict], search_string: str) -> list[dict]:
     return results
 
 
-def count_operations_by_category(operations: list[dict], categories: list[str], category=None) -> dict:
-    # Инициализируем словарь результатов
-    results = {category: 0 for category in categories}
 
-    # Проходимся через каждую операцию
-    for operation in operations:
-        # Проверяем, содержит ли описание операции любое из категорий
-        if any(category in operation["description"] for category in categories):
-            # Если да - увеличиваем счетчик для этой категории
-            results[category] += 1
+def count_operations_by_category(operations: list[dict], categories: list[str]) -> dict:
+    # Состояние описаний операций в виде строки
+    descriptions = ' '.join(operation["description"] for operation in operations)
 
-    # Возвращаем словарь результатов
-    return results
+    # Подсчет категорий в описаниях операций
+    category_counts = Counter(category for description in (operation["description"] for operation in operations)
+                              if any(category in description for category in categories) for category in categories)
+
+    return dict(category_counts)
