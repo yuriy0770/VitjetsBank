@@ -72,17 +72,17 @@ def part3(pat1):
         print(f'''Счет {get_mask_account(open_resurs[0]['to'][-16:])}
 Сумма: {open_resurs[0]['operationAmount']['amount']} {open_resurs[0]['operationAmount']['currency']['name']}''')
         for i in resurs:
-            print(f'{i["date"][:10]} {i["description"]}\n'
-                  f'{i['from'][:-16]+get_mask_card_number(i['from'][-16:])} -> {i['to']}\n'
-                  f'Сумма: {i['operationAmount']['amount']} {i['operationAmount']['currency']['name']}')
+            print(f'''{i["date"][:10]} {i["description"]}
+                  {i['from'][:-16]+get_mask_card_number(i['from'][-16:])} -> {i['to']}
+                  Сумма: {i['operationAmount']['amount']} {i['operationAmount']['currency']['name']}''')
 
 
 
 def main():
     start = part1()
-    between = part2
-    end = part3
-    end(between(start))
+    between = part2(start)
+    part3(between)
+
 
 
 
