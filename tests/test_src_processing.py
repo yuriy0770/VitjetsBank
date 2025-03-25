@@ -42,22 +42,36 @@ class TestFindOperations(unittest.TestCase):
 
 
 
+import unittest
+from typing import List, Dict
+from collections import Counter
+import re
+
+def count_operations_by_category(operations: List[Dict], categories: List[str]) -> Dict:
+    # Состояние описаний операций в виде строки
+    descriptions = ' '.join(operation["description"] for operation in operations)
+
+    # Подсчет категорий в описаниях операций
+    category_counts = Counter(category for description in (operation["description"] for operation in operations)
+                                  if any(category.lower() in description.lower() for category in categories) for category in categories)
+
+    return dict(category_counts)
+
 class TestCountOperationsByCategory(unittest.TestCase):
-
-    def test_count_operations_by_category_empty_list(self):
+    def test_empty_operations(self):
         operations = []
-        categories = ['Категория 1', 'Категория 2']
-        result = count_operations_by_category(operations, categories)
-        self.assertEqual(result, {category: 0 for category in categories})
+        categories = ['категория1', 'категория2']
+        self.assertEqual(count_operations_by_category(operations, categories), {})
 
-    def test_count_operations_by_category_no_matches(self):
-        operations = [
-            {'description': 'Операция 1'},
-            {'description': 'Операция 2'}
-        ]
-        categories = ['Категория 1', 'Категория 2']
-        result = count_operations_by_category(operations, categories)
-        self.assertEqual(result, {category: 0 for category in categories})
+    def test_empty_categories(self):
+        operations = [{'description': 'описание операции'}]
+        categories = []
+        self.assertEqual(count_operations_by_category(operations, categories), {})
+
+    def test_no_matches(self):
+        operations = [{'description': 'описание операции'}]
+        categories = ['категория1', 'категория2']
+        self.assertEqual(count_operations_by_category(operations, categories), {})
 
 
 

@@ -34,8 +34,8 @@ def part2(path):
         print(f"Статус операции '{status_choice}' недоступен.")
         status_choice = input("Введите статус, по которому необходимо выполнить фильтрацию. ")
     else:
-        print(f'Операции отфильтрованы по статусу "{status_choice}"')
-    return filter_by_state(path, status_choice)
+        print(f'Операции отфильтрованы по статусу "{status_choice.upper()}"')
+    return filter_by_state(path, status_choice.upper())
 
 def part3(pat1):
     sort_date = input("Отсортировать операции по дате? Да/Нет\n")
