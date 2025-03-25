@@ -1,29 +1,61 @@
-import os
 import unittest
-from unittest.mock import patch
-import json
-from dotenv import load_dotenv
+from unittest.mock import patch, Mock
 from src.external_api import func
-
-load_dotenv("template.env")
-API_KEY = os.getenv('API_KEY')
 
 class TestFunc(unittest.TestCase):
 
-
-
-
-    @patch('requests.request')
-    def test_api_call(self, mock_request):
-        with open("data/operations.json", encoding="utf-8") as file:
-            json_file = json.load(file)
-
-        transaction = {'operationAmount': {'currency': {'code': 'USD'}, 'amount': 100}}
+    @patch('src.external_api.requests.request')  # replace with actual module name
+    def test_func_rub(self, mock_requests):
+        transaction = {
+            "operationAmount": {
+                "currency": {"code": "RUB"},
+                "amount": 1000.0
+            }
+        }
         result = func(transaction)
-        mock_request.assert_called_once_with('GET', "https://api.apilayer.com/exchangerates_data/convert?to=RUB&from=USD&amount=100",
-                                                headers={'apikey': API_KEY})
+        self.assertEqual(result, 1000.0)
 
+    @patch('src.external_api.requests.request')
+    def test_func_usd_to_rub(self, mock_requests):
+        transaction = {
+            "operationAmount": {
+                "currency": {"code": "USD"},
+                "amount": 10.0
+            }
+        }
+        mock_response = Mock()
+        mock_response.json.return_value = {'result': 640.0}
+        mock_requests.return_value = mock_response
+        result = func(transaction)
+        self.assertEqual(result, 640.0)
 
+    @patch('src.external_api.requests.request')
+    def test_func_eur_to_rub(self, mock_requests):
+        transaction = {
+            "operationAmount": {
+                "currency": {"code": "EUR"},
+                "amount": 10.0
+            }
+        }
+        mock_response = Mock()
+        mock_response.json.return_value = {'result': 720.0}
+        mock_requests.return_value = mock_response
+        result = func(transaction)
+        self.assertEqual(result, 720.0)
+
+    @patch('src.external_api.requests.request')
+    def test_func_error(self, mock_requests):
+        transaction = {
+            "operationAmount": {
+                "currency": {"code": "USD"},
+                "amount": 10.0
+            }
+        }
+        mock_response = Mock()
+        mock_response.json.side_effect = Exception("API error")
+        mock_requests.return_value = mock_response
+        with self.assertRaises(Exception):
+            func(transaction)
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,11 +1,11 @@
 from typing import Dict, Iterator, List
 
 
-def filter_by_currency(transactions: Dict, id: str) -> Iterator:
+def filter_by_currency(transactions: List[Dict], id: str):
     """Функция должна возвращать итератор,
     который поочередно выдает транзакции,
      где валюта операции соответствует заданной"""
-    return (i for i in transactions if id in i["operationAmount"]["currency"]["name"])
+    return [i for i in transactions if id.lower() in i["operationAmount"]["currency"]["name"]]
 
 
 def transaction_descriptions(transactions):

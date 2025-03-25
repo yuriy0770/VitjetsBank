@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv(".env")
 API_KEY = os.getenv("API_KEY")
 
-with open("../data/operations.json", encoding="utf-8") as file:
+with open(r"C:\Users\User\VidjetsBank\data\operations.json", encoding="utf-8") as file:
     json_file = json.load(file)
 
 filtered_json = [i for i in json_file if "state" in i and i["state"] == "EXECUTED"]
